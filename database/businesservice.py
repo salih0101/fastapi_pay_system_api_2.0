@@ -16,7 +16,7 @@ def register_business_db(category_id: int, name: str, card_number: int):
     db = next(get_db())
     new_business = Service(category_id=category_id,
                            name=name,
-                           card_number=card_number)
+                           service_check=card_number)
     db.add(new_business)
     db.commit()
 
