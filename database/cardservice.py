@@ -20,6 +20,19 @@ def add_user_card_to_db(**kwargs):
     return 'Карта успешно добавлена'
 
 
+# Удалить карту из сервиса
+def delete_user_card_db(card_id, user_id):
+    db = next(get_db())
+    card = db.query(Card).filter_by(id=card_id, user_id=user_id).first()
+
+    if card:
+        db.delete(card)
+        db.commit()
+        return "Карта успешно удалена"
+    else:
+        return "Карта не найдена"
+
+
 # Сделать перевод с карты на карту
 def transfer_money_db(card_from, card_to, date):
     pass
@@ -27,17 +40,38 @@ def transfer_money_db(card_from, card_to, date):
 
 # Удалить карту из сервиса
 def delete_user_card(card_id, user_id):
-    pass
+    db = next( get_db() )
+    card = db.query( Card ).filter_by( id=card_id, user_id=user_id ).first()
+
+    if card:
+        db.delete( card )
+        db.commit()
+        return "Карта успешно удалена"
+    else:
+        return "Карта не найдена"
 
 
 # Получить все карты по номеру телефона
 def get_user_cards_by_phone_number_db(phone_number):
-    pass
+    db = next( get_db() )
+    user = db.query( User ).filter_by( phone_number=phone_number ).first()
+
+    if user:
+        cards = db.query( Card ).filter_by( user_id=user.id ).all()
+        return cards
+    else:
+        return "Пользователь не найден"
 
 
 # Получить определенную карту
 def get_exact_user_card(user_id, card_id):
-    pass
+    db = next( get_db() )
+    card = db.query( Card ).filter_by( id=card_id, user_id=user_id ).first()
+
+    if card:
+        return card
+    else:
+        return "Карта не найдена"
 
 
 # Получить все транзакции по определенной карте и по всем
