@@ -41,6 +41,7 @@ def check_password_db(phone_number, password):
     elif checker.password != password:
         return 'Something get wrong'
 
+
 # Получение информации пользователя
 def get_user_cabinet(user_id):
     db = next(get_db())
